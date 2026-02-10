@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabulary Practice Builder</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #e7f3ec;
+      color: #1f1f1f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background: #e7f3ec;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 18px 40px rgba(15, 15, 15, 0.08);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+
+    p {
+      margin: 0 0 24px;
+      color: #4a4a4a;
+      line-height: 1.5;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .inputs {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    label {
+      font-size: 14px;
+      color: #5b5b5b;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    input {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #d9d9df;
+      font-size: 15px;
+    }
+
+    button {
+      justify-self: start;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #2f7a57;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(47, 122, 87, 0.2);
+    }
+
+    .thumbelina-panels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0 32px;
+    }
+
+    .thumbelina-panels figure {
+      margin: 0;
+      background: #f7faf8;
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid #e2efe6;
+    }
+
+    .thumbelina-panels svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .thumbelina-panels figcaption {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #6a7f73;
+    }
+
+    .output {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid #ececf2;
+      border-radius: 14px;
+      padding: 18px 20px;
+      background: #f9fbfa;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .card ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: #3d3d3d;
+    }
+
+    .placeholder {
+      color: #8a8a94;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .definition-note {
+      font-size: 13px;
+      color: #6a7f73;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Vocabulary Practice Builder</h1>
+    <p>Enter five words and generate quick practice items: cloze sentences, because/but/so stems, and multiple-choice questions.</p>
+
+    <div class="thumbelina-panels" aria-label="Watercolor panels of Thumbelina">
+      <figure>
+        <svg viewBox="0 0 320 220" role="img" aria-label="Thumbelina in a watercolor meadow">
+          <defs>
+            <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#d7efe2" />
+              <stop offset="100%" stop-color="#f3f9f4" />
+            </linearGradient>
+          </defs>
+          <rect width="320" height="220" rx="18" fill="url(#sky)" />
+          <path d="M0 150 C60 130 120 170 180 150 C240 130 280 170 320 150 L320 220 L0 220 Z" fill="#c1e2cf" opacity="0.8" />
+          <circle cx="70" cy="110" r="26" fill="#f0c8d7" opacity="0.8" />
+          <circle cx="110" cy="90" r="18" fill="#f6e1b6" opacity="0.9" />
+          <path d="M200 140 C210 110 240 100 260 130 C250 140 230 150 200 140 Z" fill="#f6d7a7" opacity="0.8" />
+          <circle cx="180" cy="120" r="10" fill="#a2c9d9" />
+          <path d="M155 150 C158 140 162 130 165 120 C170 135 175 145 180 150 Z" fill="#7ba88c" />
+          <circle cx="165" cy="115" r="8" fill="#f2d0c6" />
+          <path d="M160 112 C150 105 145 95 150 88 C160 92 170 100 170 110 Z" fill="#d39bb1" />
+        </svg>
+        <figcaption>Thumbelina resting among soft meadow blooms.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 320 220" role="img" aria-label="Thumbelina in a watercolor garden">
+          <defs>
+            <linearGradient id="garden" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#e6f4e8" />
+              <stop offset="100%" stop-color="#f9f5ed" />
+            </linearGradient>
+          </defs>
+          <rect width="320" height="220" rx="18" fill="url(#garden)" />
+          <path d="M0 160 C70 130 140 180 210 150 C260 130 290 160 320 150 L320 220 L0 220 Z" fill="#cfe8d8" opacity="0.8" />
+          <ellipse cx="90" cy="120" rx="35" ry="22" fill="#f6d1c7" opacity="0.8" />
+          <ellipse cx="135" cy="95" rx="24" ry="16" fill="#d8e6f1" opacity="0.9" />
+          <path d="M230 140 C240 110 260 110 275 125 C265 140 250 150 230 140 Z" fill="#f1e0a7" opacity="0.85" />
+          <path d="M170 155 C175 135 182 120 190 110 C195 128 200 145 205 155 Z" fill="#7a9c88" />
+          <circle cx="190" cy="106" r="8" fill="#f0d3c4" />
+          <path d="M185 102 C175 95 172 84 178 78 C188 82 195 90 195 100 Z" fill="#c89bb0" />
+        </svg>
+        <figcaption>Thumbelina walking through a quiet garden path.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 320 220" role="img" aria-label="Thumbelina in a watercolor pond">
+          <defs>
+            <linearGradient id="pond" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#e4f1ea" />
+              <stop offset="100%" stop-color="#e9f6f2" />
+            </linearGradient>
+          </defs>
+          <rect width="320" height="220" rx="18" fill="url(#pond)" />
+          <ellipse cx="120" cy="150" rx="80" ry="32" fill="#cde6e1" opacity="0.9" />
+          <ellipse cx="240" cy="150" rx="60" ry="28" fill="#bcdad1" opacity="0.8" />
+          <circle cx="80" cy="110" r="22" fill="#f2d0c6" opacity="0.85" />
+          <circle cx="130" cy="90" r="16" fill="#f8e6b7" opacity="0.85" />
+          <path d="M200 140 C205 118 220 112 235 120 C230 135 215 145 200 140 Z" fill="#f1d2a8" />
+          <path d="M175 160 C178 142 184 128 190 118 C195 132 200 148 205 160 Z" fill="#799c89" />
+          <circle cx="190" cy="114" r="8" fill="#f0d1c2" />
+          <path d="M186 111 C175 104 172 92 180 86 C190 90 197 98 197 108 Z" fill="#d0a2b5" />
+        </svg>
+        <figcaption>Thumbelina reflecting by a calm pond.</figcaption>
+      </figure>
+    </div>
+
+    <form id="vocab-form">
+      <div class="inputs">
+        <label>
+          Word 1
+          <input type="text" name="word" placeholder="e.g., adapt" required />
+        </label>
+        <label>
+          Word 2
+          <input type="text" name="word" placeholder="e.g., contrast" required />
+        </label>
+        <label>
+          Word 3
+          <input type="text" name="word" placeholder="e.g., summarize" required />
+        </label>
+        <label>
+          Word 4
+          <input type="text" name="word" placeholder="e.g., analyze" required />
+        </label>
+        <label>
+          Word 5
+          <input type="text" name="word" placeholder="e.g., justify" required />
+        </label>
+      </div>
+      <button type="submit">Generate practice</button>
+    </form>
+
+    <section class="output" id="output">
+      <p class="placeholder">Your practice items will appear here.</p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("vocab-form");
+    const output = document.getElementById("output");
+
+    const clozeTemplates = [
+      "During the workshop, Maya had to ___ her idea so everyone understood.",
+      "After the storm, the town worked together to ___ the damage.",
+      "In the story, the hero chose to ___ the mysterious note before acting.",
+      "The coach reminded the team to ___ their strategy before the final round.",
+      "To stay calm, Luis tried to ___ his thoughts into one clear plan."
+    ];
+
+    const stemTemplates = [
+      "Because I wanted to use \"{word}\" correctly, I reread the example.",
+      "But I still felt unsure about \"{word}\", so I asked a classmate.",
+      "So I wrote a new sentence with \"{word}\" to make it stick."
+    ];
+
+    const fallbackDefinitions = [
+      "to make something better through careful change",
+      "a clear difference that helps you notice details",
+      "to explain something briefly and in order",
+      "to examine parts closely to understand the whole",
+      "to give strong reasons that support a choice"
+    ];
+
+    const extraDistractors = [
+      "a gentle sound made by moving leaves",
+      "a small object used for keeping time",
+      "a friendly gathering of neighbors",
+      "a line drawn across the center",
+      "a quick movement from side to side",
+      "a set of steps used for baking",
+      "a cozy place to rest during the day",
+      "a sudden feeling of excitement"
+    ];
+
+    const shuffle = (array) => {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    };
+
+    const fetchDefinition = async (word) => {
+      try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        if (!response.ok) {
+          throw new Error("Definition lookup failed");
+        }
+        const data = await response.json();
+        const meaning = data?.[0]?.meanings?.[0]?.definitions?.[0]?.definition;
+        return meaning || null;
+      } catch (error) {
+        return null;
+      }
+    };
+
+    const buildCloze = (word, index) => {
+      const template = clozeTemplates[index % clozeTemplates.length];
+      return `Cloze sentence: ${template} (Target word: ${word})`;
+    };
+
+    const buildStems = (word) => {
+      return `Because/But/So stems: ${stemTemplates
+        .map((stem) => stem.replace("{word}", word))
+        .join(" ")}`;
+    };
+
+    const buildChoices = (word, correctDefinition, distractors) => {
+      const options = shuffle([
+        correctDefinition,
+        ...shuffle(distractors).slice(0, 3)
+      ]);
+      return {
+        question: `Which option best defines “${word}”?`,
+        options
+      };
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const words = Array.from(form.querySelectorAll("input[name='word']"))
+        .map((input) => input.value.trim())
+        .filter(Boolean);
+
+      output.innerHTML = "";
+
+      if (words.length !== 5) {
+        const notice = document.createElement("p");
+        notice.className = "placeholder";
+        notice.textContent = "Please enter exactly five words to generate the practice items.";
+        output.appendChild(notice);
+        return;
+      }
+
+      const definitionResults = await Promise.all(words.map(fetchDefinition));
+
+      words.forEach((word, index) => {
+        const correctDefinition =
+          definitionResults[index] || fallbackDefinitions[index % fallbackDefinitions.length];
+        const distractors = [
+          ...fallbackDefinitions.filter((item) => item !== correctDefinition),
+          ...extraDistractors
+        ];
+        const mcq = buildChoices(word, correctDefinition, distractors);
+
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <h2>Word ${index + 1}: ${word}</h2>
+          <p>${buildCloze(word, index)}</p>
+          <p>${buildStems(word)}</p>
+          <p>${mcq.question}</p>
+          <ul>
+            ${mcq.options.map((option) => `<li>${option}</li>`).join("")}
+          </ul>
+          <p class="definition-note">Definition source: ${
+            definitionResults[index] ? "Dictionary lookup" : "Built-in fallback"
+          }.</p>
+        `;
+        output.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
